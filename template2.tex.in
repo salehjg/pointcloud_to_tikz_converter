@@ -1,0 +1,43 @@
+% https://tex.stackexchange.com/questions/117140/easiest-way-to-draw-a-3d-coordinate-system-with-axis-labels-and-ticks-in-tikz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+
+\begin{document}
+
+\begin{tikzpicture}[x=0.5cm,y=0.5cm,z=0.3cm,>=stealth]
+% The axes
+\draw[->] (xyz cs:x=-13.5) -- (xyz cs:x=13.5) node[above] {$x$};
+\draw[->] (xyz cs:y=-13.5) -- (xyz cs:y=13.5) node[right] {$z$};
+\draw[->] (xyz cs:z=-13.5) -- (xyz cs:z=13.5) node[above] {$y$};
+% The thin ticks
+\foreach \coo in {-13,-12,...,13}
+{
+  \draw (\coo,-1.5pt) -- (\coo,1.5pt);
+  \draw (-1.5pt,\coo) -- (1.5pt,\coo);
+  \draw (xyz cs:y=-0.15pt,z=\coo) -- (xyz cs:y=0.15pt,z=\coo);
+}
+% The thick ticks
+\foreach \coo in {-10,-5,5,10}
+{
+  \draw[thick] (\coo,-3pt) -- (\coo,3pt) node[below=6pt] {\coo};
+  \draw[thick] (-3pt,\coo) -- (3pt,\coo) node[left=6pt] {\coo};
+  \draw[thick] (xyz cs:y=-0.3pt,z=\coo) -- (xyz cs:y=0.3pt,z=\coo) node[below=8pt] {\coo};
+}
+
+% Point-cloud
+$PCL$
+
+
+% The origin
+\node[align=center] at (3,-3) (ori) {(0,0,0)\\\text{origin}};
+\draw[->,help lines,shorten >=3pt] (ori) .. controls (1,-2) and (1.2,-1.5) .. (0,0,0);
+
+% Pointcloud's name
+\node[align=center] at (0,-15) (pclname) {$PCLNAME$\\$PCL_N$ Points};
+
+\end{tikzpicture}
+
+\end{document}
