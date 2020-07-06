@@ -146,7 +146,7 @@ def main():
         "modelnet40_B2048_labels_int32.npy",
         "template2.tex.in"
     )
-    for i in range(1, 2):
+    for i in range(batch_start, batch_stop):
         fname2 = converter.generate_tex(i)
         os.system(''.join(["sh ", os.path.dirname(os.path.realpath(__file__)), "/build_pdf.sh ", fname2]))
 
